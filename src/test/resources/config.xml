@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:routing-utils="http://www.mulesoft.org/schema/mule/routing-utils"
+      xmlns="http://www.mulesoft.org/schema/mule/core"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/routing-utils http://www.mulesoft.org/schema/mule/routing-utils/current/mule-routing-utils.xsd">
+
+    <flow name="detourOnFlowVars">
+        <routing-utils:detour when="#[flowVars.when]" nullReturnsTrue="#[flowVars.nullReturnsTrue]">
+            <set-payload value="modified payload"/>
+        </routing-utils:detour>
+    </flow>
+
+    <flow name="detourOnProperty">
+        <routing-utils:detour when="#[message.outboundProperties['foo'] == 'bar']">
+            <set-payload value="modified payload"/>
+        </routing-utils:detour>
+    </flow>
+
+
+</mule>
